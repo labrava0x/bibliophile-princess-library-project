@@ -1,5 +1,5 @@
 # 🏛️ The Royal Library: Bibliophile Princess 
-> *A Fan-Art Architectural Sanctuary*
+> *A Fan-Art Architectural ROMANCE !*
 
 Because before I even finished the project *The Library of My Dreams*— the first library project for TOP— I knew that one library was not enough! Once I figured out how to make the library of my dreams, I knew I was ready to step up, and bring Elianna's royal library to life. This is another dream come true!
 
