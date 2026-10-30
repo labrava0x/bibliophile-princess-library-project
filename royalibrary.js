@@ -1,4 +1,10 @@
-const LIBRARY_VERSION = 'v5-bibliophile-princess';
+/**
+ * THE ROYAL LIBRARY - BIBLIOPHILE PRINCESS SANCTUARY (v9-bibliophile-princess)
+ * Pure royal collection: Ancient Classics, Scholarly Fairy Tales, Star Traveller,
+ * Courtly Romances, Etiquette & Statecraft, and Shared Readings with Prince Christopher.
+ */
+
+const LIBRARY_VERSION = 'v9-bibliophile-princess-royal';
 
 // Book Constructor
 class Book {
@@ -7,16 +13,16 @@ class Book {
         this.title = title;
         this.author = author;
         this.shelf = shelf;
-        this.status = status; // 'absorbed' or 'reading'
+        this.status = status || 'powerfully-read'; // 'powerfully-read' or 'powerfully-reading'
         this.notes = notes || '';
     }
 
     toggleRead() {
-        this.status = this.status === 'absorbed' ? 'reading' : 'absorbed';
+        this.status = this.status === 'powerfully-read' ? 'powerfully-reading' : 'powerfully-read';
     }
 }
 
-// Safe ID Fallback Engine (prevents crypto.randomUUID() failures under file:// protocol)
+// Safe ID Fallback Engine
 function generateId() {
     if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
         try {
@@ -25,230 +31,21 @@ function generateId() {
             // Fallback if security context restricts randomUUID
         }
     }
-    // RFC4122-compliant fallback generator
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
         var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
         return v.toString(16);
     });
 }
 
-// Raw Seed Data: Complete Sanctuary Collections
+// Pure Bibliophile Princess Royal Collection
 const rawSeedData = [
-    // --- Gothic & Poetic Soul ---
-    {
-        id: generateId(),
-        title: "The Complete Tales and Poems",
-        author: "Edgar Allan Poe",
-        shelf: "Gothic & Poetic Soul",
-        status: "absorbed",
-        notes: "Macabre masterpieces and rhythmic darkness."
-    },
-    {
-        id: generateId(),
-        title: "Dracula",
-        author: "Bram Stoker",
-        shelf: "Gothic & Poetic Soul",
-        status: "absorbed",
-        notes: "Epistolary dread and eternal shadows."
-    },
-    {
-        id: generateId(),
-        title: "Carmilla",
-        author: "Sheridan Le Fanu",
-        shelf: "Gothic & Poetic Soul",
-        status: "absorbed",
-        notes: "The foundational whisper of gothic vampiric melancholy."
-    },
-    {
-        id: generateId(),
-        title: "The Haunting of Hill House",
-        author: "Shirley Jackson",
-        shelf: "Gothic & Poetic Soul",
-        status: "absorbed",
-        notes: "Architecture of fear and fractured psyches."
-    },
-    {
-        id: generateId(),
-        title: "The Mysteries of Udolpho",
-        author: "Ann Radcliffe",
-        shelf: "Gothic & Poetic Soul",
-        status: "reading",
-        notes: "The height of Radcliffe's atmospheric terror."
-    },
-    {
-        id: generateId(),
-        title: "Frankenstein",
-        author: "Mary Shelley",
-        shelf: "Gothic & Poetic Soul",
-        status: "absorbed",
-        notes: "Promethean hubris and tragic isolation."
-    },
-    {
-        id: generateId(),
-        title: "No Longer Human",
-        author: "Osamu Dazai",
-        shelf: "Gothic & Poetic Soul",
-        status: "absorbed",
-        notes: "A harrowing confession of alienation."
-    },
-    {
-        id: generateId(),
-        title: "The Little Prince",
-        author: "Antoine de Saint-Exupéry",
-        shelf: "Gothic & Poetic Soul",
-        status: "absorbed",
-        notes: "What is essential is invisible to the eye."
-    },
-    {
-        id: generateId(),
-        title: "The Master and Margarita",
-        author: "Mikhail Bulgakov",
-        shelf: "Gothic & Poetic Soul",
-        status: "absorbed",
-        notes: "Satirical magic realism in Soviet Moscow."
-    },
-
-    // --- Heavy Russian Toska ---
-    {
-        id: generateId(),
-        title: "Notes from Underground",
-        author: "Fyodor Dostoevsky",
-        shelf: "Heavy Russian Toska",
-        status: "absorbed",
-        notes: "The raw manifesto of existential spite."
-    },
-    {
-        id: generateId(),
-        title: "Toska (Short Stories)",
-        author: "Anton Chekhov",
-        shelf: "Heavy Russian Toska",
-        status: "absorbed",
-        notes: "An ache for which there is no name."
-    },
-    {
-        id: generateId(),
-        title: "The Overcoat",
-        author: "Nikolai Gogol",
-        shelf: "Heavy Russian Toska",
-        status: "absorbed",
-        notes: "Absurdist tragedy of the forgotten clerk."
-    },
-    {
-        id: generateId(),
-        title: "A Hero of Our Time",
-        author: "Mikhail Lermontov",
-        shelf: "Heavy Russian Toska",
-        status: "reading",
-        notes: "Byronic disillusionment on the Caucasian frontier."
-    },
-    {
-        id: generateId(),
-        title: "First Love and Asya",
-        author: "Ivan Turgenev",
-        shelf: "Heavy Russian Toska",
-        status: "absorbed",
-        notes: "Lyrical heartbreak and memory."
-    },
-
-    // --- Existential & Philosophical ---
-    {
-        id: generateId(),
-        title: "The Metamorphosis",
-        author: "Franz Kafka",
-        shelf: "Existential & Philosophical",
-        status: "absorbed",
-        notes: "Alienation rendered literal."
-    },
-    {
-        id: generateId(),
-        title: "The Trial",
-        author: "Franz Kafka",
-        shelf: "Existential & Philosophical",
-        status: "reading",
-        notes: "Navigating the labyrinth of bureaucratic guilt."
-    },
-    {
-        id: generateId(),
-        title: "The Stranger",
-        author: "Albert Camus",
-        shelf: "Existential & Philosophical",
-        status: "absorbed",
-        notes: "The scorching sun and the absurd."
-    },
-    {
-        id: generateId(),
-        title: "Kafka on the Shore",
-        author: "Haruki Murakami",
-        shelf: "Existential & Philosophical",
-        status: "absorbed",
-        notes: "Metaphysical wanderings and flying fish."
-    },
-    {
-        id: generateId(),
-        title: "Norwegian Wood",
-        author: "Haruki Murakami",
-        shelf: "Existential & Philosophical",
-        status: "absorbed",
-        notes: "Melancholic youth and loss."
-    },
-    {
-        id: generateId(),
-        title: "Never Let Me Go",
-        author: "Kazuo Ishiguro",
-        shelf: "Existential & Philosophical",
-        status: "absorbed",
-        notes: "Dystopian tenderness and fading time."
-    },
-    {
-        id: generateId(),
-        title: "Breasts and Eggs",
-        author: "Mieko Kawakami",
-        shelf: "Existential & Philosophical",
-        status: "absorbed",
-        notes: "Modern identity and bodily autonomy."
-    },
-
-    // --- Tactical & Unyielding Core ---
-    {
-        id: generateId(),
-        title: "The Art of War",
-        author: "Sun Tzu",
-        shelf: "Tactical & Unyielding Core",
-        status: "absorbed",
-        notes: "Supreme excellence consists in breaking the enemy's resistance without fighting."
-    },
-    {
-        id: generateId(),
-        title: "The Book of Five Rings",
-        author: "Miyamoto Musashi",
-        shelf: "Tactical & Unyielding Core",
-        status: "absorbed",
-        notes: "Strategy, discipline, and absolute focus."
-    },
-    {
-        id: generateId(),
-        title: "Can't Hurt Me",
-        author: "David Goggins",
-        shelf: "Tactical & Unyielding Core",
-        status: "absorbed",
-        notes: "Forging mental toughness against all odds."
-    },
-    {
-        id: generateId(),
-        title: "Endurance: Shackleton's Incredible Voyage",
-        author: "Alfred Lansing",
-        shelf: "Tactical & Unyielding Core",
-        status: "absorbed",
-        notes: "Unbreakable human will amidst Antarctic ice."
-    },
-
-    // --- Ancient Classics ---
+    // --- Ancient Classics & Scholarly Archives (Papyrus & Ancient Scroll Theme) ---
     {
         id: generateId(),
         title: "The Histories",
         author: "Herodotus",
         shelf: "Ancient Classics",
-        status: "absorbed",
+        status: "powerfully-read",
         notes: "The monumental inquiry into the customs, wars, and marvels of the ancient world."
     },
     {
@@ -256,7 +53,7 @@ const rawSeedData = [
         title: "Parallel Lives",
         author: "Plutarch",
         shelf: "Ancient Classics",
-        status: "absorbed",
+        status: "powerfully-read",
         notes: "Biographical portraits examining virtue and vice across Greek and Roman titans."
     },
     {
@@ -264,7 +61,7 @@ const rawSeedData = [
         title: "The Annals",
         author: "Tacitus",
         shelf: "Latin Classics",
-        status: "reading",
+        status: "powerfully-reading",
         notes: "A piercing, unsparing chronicle of imperial power, corruption, and survival."
     },
     {
@@ -272,7 +69,7 @@ const rawSeedData = [
         title: "Meditations",
         author: "Marcus Aurelius",
         shelf: "Ancient Greek",
-        status: "absorbed",
+        status: "powerfully-read",
         notes: "Private Stoic reflections on duty, resilience, and the quiet center of the mind."
     },
     {
@@ -280,7 +77,7 @@ const rawSeedData = [
         title: "The Art of War (Classic Edition)",
         author: "Sun Tzu",
         shelf: "Traditional Chinese",
-        status: "absorbed",
+        status: "powerfully-read",
         notes: "Timeless wisdom on strategic adaptability, timing, and psychological mastery."
     },
     {
@@ -288,7 +85,7 @@ const rawSeedData = [
         title: "Records of the Grand Historian",
         author: "Sima Qian",
         shelf: "Traditional Chinese",
-        status: "reading",
+        status: "powerfully-reading",
         notes: "The sweeping chronicle of dynasties past, bridging myth and empirical history."
     },
     {
@@ -296,7 +93,7 @@ const rawSeedData = [
         title: "The Aeneid",
         author: "Virgil",
         shelf: "Latin Classics",
-        status: "absorbed",
+        status: "powerfully-read",
         notes: "The epic verse of fate, empire, and the long road to founding a new home."
     },
     {
@@ -304,17 +101,17 @@ const rawSeedData = [
         title: "Tao Te Ching",
         author: "Laozi",
         shelf: "Traditional Chinese",
-        status: "absorbed",
+        status: "powerfully-read",
         notes: "Poetic wisdom on effortless action (wu-wei) and alignment with the universe."
     },
 
-    // --- Scholarly Fairy Tales & Star Traveller ---
+    // --- Scholarly Fairy Tales & Cosmic Wings (Special Galaxy Blue Theme) ---
     {
         id: generateId(),
         title: "The Blue Fairy Book",
         author: "Andrew Lang",
         shelf: "Scholarly Fairy Tales",
-        status: "absorbed",
+        status: "powerfully-read",
         notes: "The foundational folkloric collection gathering timeless European fairy tales with scholarly elegance."
     },
     {
@@ -322,7 +119,7 @@ const rawSeedData = [
         title: "Grimms' Fairy Tales",
         author: "Brothers Grimm",
         shelf: "Scholarly Fairy Tales",
-        status: "absorbed",
+        status: "powerfully-read",
         notes: "The unvarnished, mythic German folk and fairy tales compiled with historical depth and dark poetic resonance."
     },
     {
@@ -330,7 +127,7 @@ const rawSeedData = [
         title: "The Star Traveller",
         author: "Sanctuary Archives",
         shelf: "Scholarly Fairy Tales",
-        status: "absorbed",
+        status: "powerfully-read",
         notes: "The crown jewel of cosmic odysseys, charting voyages across distant starlit galaxies and dream dimensions."
     },
     {
@@ -338,7 +135,7 @@ const rawSeedData = [
         title: "The Uses of Enchantment",
         author: "Bruno Bettelheim",
         shelf: "Scholarly Fairy Tales",
-        status: "reading",
+        status: "powerfully-reading",
         notes: "A profound psychoanalytic exploration of the emotional and psychological necessity of fairy tales."
     },
     {
@@ -346,17 +143,17 @@ const rawSeedData = [
         title: "Fairy Tales and the Art of Subversion",
         author: "Jack Zipes",
         shelf: "Scholarly Fairy Tales",
-        status: "absorbed",
+        status: "powerfully-read",
         notes: "A critical examination of how folk and fairy tales reflect social history, magic, and cultural rebellion."
     },
 
-    // --- Courtly Romances & Medieval Masterpieces ---
+    // --- Courtly Romances & Medieval Masterpieces (Soft Glow Enchanting Pink Theme) ---
     {
         id: generateId(),
         title: "The Romance of the Rose",
         author: "Guillaume de Lorris and Jean de Meun",
         shelf: "Courtly Romances",
-        status: "absorbed",
+        status: "powerfully-read",
         notes: "The landmark medieval allegorical dream vision on courtly love and human desire."
     },
     {
@@ -364,7 +161,7 @@ const rawSeedData = [
         title: "Le Morte d'Arthur",
         author: "Sir Thomas Malory",
         shelf: "Courtly Romances",
-        status: "absorbed",
+        status: "powerfully-read",
         notes: "The quintessential epic chronicling the rise and tragic fall of King Arthur and the Round Table."
     },
     {
@@ -372,7 +169,7 @@ const rawSeedData = [
         title: "The Name of the Rose",
         author: "Umberto Eco",
         shelf: "Courtly Romances",
-        status: "absorbed",
+        status: "powerfully-read",
         notes: "A labyrinthine medieval murder mystery woven with semiotics, heresy, and monastic library secrets."
     },
 
@@ -382,7 +179,7 @@ const rawSeedData = [
         title: "The Prince",
         author: "Niccolò Machiavelli",
         shelf: "Etiquette & Statecraft",
-        status: "absorbed",
+        status: "powerfully-read",
         notes: "The unflinching tactical treatise on power, pragmatism, and political survival."
     },
     {
@@ -390,7 +187,7 @@ const rawSeedData = [
         title: "The Book of the Courtier",
         author: "Baldassare Castiglione",
         shelf: "Etiquette & Statecraft",
-        status: "absorbed",
+        status: "powerfully-read",
         notes: "The definitive Renaissance guide to grace, wit, sprezzatura, and aristocratic behavior."
     },
     {
@@ -398,12 +195,45 @@ const rawSeedData = [
         title: "Galateo: The Rules of Good Behaviour",
         author: "Giovanni della Casa",
         shelf: "Etiquette & Statecraft",
-        status: "reading",
+        status: "powerfully-reading",
         notes: "A witty, foundational Renaissance manual on manners, social harmony, and civilized grace."
+    },
+
+    // --- Shared Royal Reading with Prince Christopher (Radiant Royal Yellow Theme) ---
+    {
+        id: generateId(),
+        title: "The Diplomatic Treaties of the Eastern Realm",
+        author: "Archduke Ferdinand of Sylvania",
+        shelf: "Shared Royal Reading",
+        status: "powerfully-read",
+        notes: "Studied together during quiet evenings in the palace gardens to prepare for kingdom affairs."
+    },
+    {
+        id: generateId(),
+        title: "Sonnets from the Portuguese & Other Love Poems",
+        author: "Elizabeth Barrett Browning",
+        shelf: "Shared Royal Reading",
+        status: "powerfully-read",
+        notes: "Read aloud beneath the starlit gazebo—a quiet sanctuary from royal duties."
+    },
+    {
+        id: generateId(),
+        title: "The Chronicle of the Founding Dynasties",
+        author: "Royal Court Historians",
+        shelf: "Shared Royal Reading",
+        status: "powerfully-reading",
+        notes: "A massive multi-volume history they annotate together in the margins."
+    },
+    {
+        id: generateId(),
+        title: "Fairy Tales of the High Kingdom",
+        author: "Court Chronicler Valerius",
+        shelf: "Shared Royal Reading",
+        status: "powerfully-read",
+        notes: "The very book of stories Christopher remembered from childhood and shared with Elianna."
     }
 ];
 
-// LocalStorage Manager with Version Gate
 let myLibrary = [];
 
 function loadLibrary() {
@@ -411,13 +241,11 @@ function loadLibrary() {
     const savedData = localStorage.getItem('myLibrary');
 
     if (savedVersion !== LIBRARY_VERSION || !savedData) {
-        // Fresh seed migration
         myLibrary = rawSeedData.map(item => new Book(item.id, item.title, item.author, item.shelf, item.status, item.notes));
         saveLibrary();
     } else {
         try {
             const parsed = JSON.parse(savedData);
-            // Re-instantiate through Book prototype to attach methods like toggleRead()
             myLibrary = parsed.map(item => new Book(item.id, item.title, item.author, item.shelf, item.status, item.notes));
         } catch (e) {
             myLibrary = rawSeedData.map(item => new Book(item.id, item.title, item.author, item.shelf, item.status, item.notes));
@@ -431,7 +259,6 @@ function saveLibrary() {
     localStorage.setItem('library_version', LIBRARY_VERSION);
 }
 
-// Threshold Portal & Idle Interceptor Engine
 document.addEventListener('DOMContentLoaded', () => {
     loadLibrary();
     initPortalEngine();
@@ -443,14 +270,11 @@ function initPortalEngine() {
     const portal = document.getElementById('threshold-portal');
     if (!portal) return;
 
-    let inactivityTimer;
-
     function shatterPortal() {
         portal.classList.add('shattered');
         setTimeout(() => portal.style.display = 'none', 800);
     }
 
-    // Global Enter key intercept
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' && portal.style.display !== 'none') {
             shatterPortal();
@@ -458,37 +282,12 @@ function initPortalEngine() {
     });
 
     portal.addEventListener('click', shatterPortal);
-
-    // Inactivity detector for idle curtain return (60 seconds)
-    function resetInactivityTimer() {
-        clearTimeout(inactivityTimer);
-        inactivityTimer = setTimeout(() => {
-            if (portal.classList.contains('shattered')) {
-                portal.classList.remove('shattered');
-                portal.style.display = 'flex';
-            }
-        }, 60000);
-    }
-
-    ['mousemove', 'keydown', 'scroll', 'touchstart'].forEach(evt => {
-        document.addEventListener(evt, resetInactivityTimer, { passive: true });
-    });
-
-    // Tab visibility change intercept
-    document.addEventListener('visibilitychange', () => {
-        if (document.hidden) {
-            portal.classList.remove('shattered');
-            portal.style.display = 'flex';
-        }
-    });
 }
 
-// UI Event Handlers & Delegation
 function initUIEventListeners() {
     const libraryContainer = document.getElementById('library');
     if (!libraryContainer) return;
 
-    // Centralized Event Delegation for Shelf Grid
     libraryContainer.addEventListener('click', (e) => {
         const card = e.target.closest('.book-card');
         if (!card) return;
@@ -525,8 +324,11 @@ function renderLibrary() {
 
     myLibrary.forEach(book => {
         const card = document.createElement('div');
-        card.className = `book-card ${book.status === 'absorbed' ? 'absorbed' : 'reading'}`;
+        card.className = `book-card ${book.status}`;
         card.dataset.id = book.id;
+        card.dataset.shelf = book.shelf; // Binds shelf name for CSS styling
+
+        const isRead = book.status === 'powerfully-read';
 
         card.innerHTML = `
             <div class="book-spine-accent"></div>
@@ -536,8 +338,8 @@ function renderLibrary() {
                 <h4 class="book-author">by ${escapeHTML(book.author)}</h4>
                 <p class="book-notes">${escapeHTML(book.notes)}</p>
                 <div class="book-actions">
-                    <button class="status-btn">${book.status === 'absorbed' ? '✨ Absorbed' : '📖 Reading'}</button>
-                    <button class="delete-btn">🔥 Return to Void</button>
+                    <button class="status-btn">${isRead ? '✨ Powerfully Read' : '📖 Powerfully Reading'}</button>
+                    <button class="delete-btn">🏛️ Return to Shelf</button>
                 </div>
             </div>
         `;

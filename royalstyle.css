@@ -1,0 +1,323 @@
+/* =================================================================
+   THE ROYAL LIBRARY - THE ROYAL WING OF STYLING: QUILL & MANUSCRIPT
+   ================================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Cinzel:wght@500;700&display=swap');
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100vh;
+}
+
+body {
+    /* 👑⚔️ The Bloody Prince (Gold/Yellow Hair & Deep Blue Eyes) holding his Princess (Soft Pink Gown) */
+    background: linear-gradient(
+        180deg, 
+        #0a1628 0%,    /* Prince Christopher's piercing blue eyes (deep royal sapphire) */
+        #15243e 20%,   /* The royal uniform blending into the night */
+        #e2b538 42%,   /* His radiant golden hair shining through the embrace */
+        #fce8b2 48%,   /* The bright golden crown-light glinting */
+        #ffb3c6 58%,   /* Elianna's iconic soft pink gown wrapping the center */
+        #e07a93 75%,   /* The deep, warm rose of her dress against him */
+        #131018 100%   /* The quiet, protective shadows of the library floor */
+    );
+    background-attachment: fixed;
+    background-size: cover;
+    color: #f3ebd8;
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
+}
+
+/* Threshold Portal Curtain */
+.threshold-portal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(circle at center, #1b263b 0%, #080c14 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    cursor: pointer;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+.threshold-portal.shattered {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.portal-content {
+    text-align: center;
+    padding: 2rem;
+    max-width: 600px;
+}
+
+.portal-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.8rem;
+    color: #fbc02d;
+    margin-bottom: 1rem;
+    letter-spacing: 2px;
+}
+
+.portal-subtitle {
+    font-family: 'Great Vibes', cursive;
+    font-size: 1.8rem;
+    line-height: 1.6;
+    color: #f3ebd8;
+    text-shadow: 0 0 8px rgba(251, 192, 45, 0.3);
+}
+
+.portal-sigil {
+    font-size: 3rem;
+    margin-top: 1.5rem;
+}
+
+/* Sanctuary Header */
+.sanctuary-header {
+    text-align: center;
+    padding: 3.5rem 1rem 1.5rem;
+    background: linear-gradient(180deg, rgba(27, 38, 59, 0.6) 0%, rgba(13, 18, 31, 0.2) 100%);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.sanctuary-badge {
+    background: #d4af37;
+    color: #07090f;
+    padding: 0.2rem 0.8rem;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    font-family: 'Cinzel', serif;
+    letter-spacing: 1px;
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+}
+
+.sanctuary-header h1 {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5rem;
+    letter-spacing: 1px;
+    margin: 1rem 0 0.5rem;
+    color: #fbc02d;
+    text-shadow: 0 2px 10px rgba(251, 192, 45, 0.3);
+}
+
+.sanctuary-tagline {
+    font-family: 'Great Vibes', cursive;
+    font-size: 1.6rem;
+    color: #e6c567;
+    margin: 0;
+}
+
+/* Grid Layout */
+.sanctuary-main {
+    max-width: 1200px;
+    margin: 2.5rem auto;
+    padding: 0 1rem;
+}
+
+.book-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.8rem;
+}
+
+/* Base Book Card (Foreign Treasure Feel) */
+.book-card {
+    position: relative;
+    border-radius: 12px;
+    padding: 1.8rem;
+    background: linear-gradient(135deg, rgba(31, 26, 23, 0.95), rgba(44, 36, 33, 0.95));
+    color: #f3ebd8;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+}
+
+.book-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.7), 0 0 15px rgba(212, 175, 55, 0.2);
+}
+
+.book-card .book-spine-accent {
+    height: 4px;
+    width: 100%;
+    margin-bottom: 1rem;
+    border-radius: 2px;
+    background: #d4af37;
+    box-shadow: 0 0 8px rgba(212, 175, 55, 0.6);
+}
+
+/* 🖋️ Quill Handwriting Style applied to Book Titles & Notes */
+.book-title {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.1rem;
+    line-height: 1.2;
+    margin: 0.4rem 0;
+    color: #fbc02d;
+    font-weight: normal;
+}
+
+.book-author {
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    color: #c9b097;
+    margin: 0.4rem 0 1rem 0;
+}
+
+.book-notes {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.15rem;
+    line-height: 1.5;
+    color: #e0d5c1;
+    margin-bottom: 1.2rem;
+}
+
+.book-card .book-shelf-tag {
+    background: rgba(212, 175, 55, 0.15);
+    color: #e6c567;
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+    display: inline-block;
+    margin-bottom: 0.5rem;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.book-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.status-btn, .delete-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: inherit;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+}
+
+.status-btn:hover, .delete-btn:hover {
+    background: rgba(212, 175, 55, 0.2);
+    border-color: rgba(212, 175, 55, 0.4);
+}
+
+/* =================================================================
+   WING THEME COLOR ACCENTS (Matched via data-shelf)
+   ================================================================= */
+
+/* 1. ✨ Special Galaxy Blue (Scholarly Fairy Tales / Star Traveller) */
+.book-card[data-shelf="Scholarly Fairy Tales"] {
+    background: linear-gradient(135deg, rgba(13, 27, 42, 0.95), rgba(27, 38, 59, 0.95));
+    border-color: rgba(119, 141, 169, 0.5);
+    color: #e0e1dd;
+}
+.book-card[data-shelf="Scholarly Fairy Tales"] .book-spine-accent {
+    background: #4cc9f0;
+    box-shadow: 0 0 12px #4cc9f0;
+}
+.book-card[data-shelf="Scholarly Fairy Tales"] .book-title {
+    color: #90e0ef;
+}
+
+/* 2. 📜 Papyrus & Ancient Scroll (Ancient, Latin, Greek, Chinese Classics) */
+.book-card[data-shelf="Ancient Classics"],
+.book-card[data-shelf="Latin Classics"],
+.book-card[data-shelf="Ancient Greek"],
+.book-card[data-shelf="Traditional Chinese"] {
+    background: linear-gradient(135deg, rgba(244, 236, 216, 0.95), rgba(230, 213, 184, 0.95));
+    color: #2c221e;
+    border-color: rgba(212, 194, 165, 0.8);
+}
+.book-card[data-shelf="Ancient Classics"] .book-spine-accent,
+.book-card[data-shelf="Latin Classics"] .book-spine-accent,
+.book-card[data-shelf="Ancient Greek"] .book-spine-accent,
+.book-card[data-shelf="Traditional Chinese"] .book-spine-accent {
+    background: #8c6239;
+    box-shadow: 0 0 8px rgba(140, 98, 57, 0.4);
+}
+.book-card[data-shelf="Ancient Classics"] .book-title,
+.book-card[data-shelf="Latin Classics"] .book-title,
+.book-card[data-shelf="Ancient Greek"] .book-title,
+.book-card[data-shelf="Traditional Chinese"] .book-title {
+    color: #4a2e1b;
+}
+.book-card[data-shelf="Ancient Classics"] .book-author,
+.book-card[data-shelf="Latin Classics"] .book-author,
+.book-card[data-shelf="Ancient Greek"] .book-author,
+.book-card[data-shelf="Traditional Chinese"] .book-author,
+.book-card[data-shelf="Ancient Classics"] .book-shelf-tag,
+.book-card[data-shelf="Latin Classics"] .book-shelf-tag,
+.book-card[data-shelf="Ancient Greek"] .book-shelf-tag,
+.book-card[data-shelf="Traditional Chinese"] .book-shelf-tag {
+    color: #5c4033;
+    border-color: rgba(92, 64, 51, 0.3);
+}
+.book-card[data-shelf="Ancient Classics"] .book-notes,
+.book-card[data-shelf="Latin Classics"] .book-notes,
+.book-card[data-shelf="Ancient Greek"] .book-notes,
+.book-card[data-shelf="Traditional Chinese"] .book-notes {
+    color: #3d2c21;
+}
+
+/* 3. 🌸 Soft Glow Enchanting Pink (Courtly Romances) */
+.book-card[data-shelf="Courtly Romances"] {
+    background: linear-gradient(135deg, rgba(255, 240, 243, 0.95), rgba(255, 204, 213, 0.95));
+    color: #590d22;
+    border-color: rgba(255, 143, 171, 0.8);
+    box-shadow: 0 6px 25px rgba(255, 143, 171, 0.3);
+}
+.book-card[data-shelf="Courtly Romances"] .book-spine-accent {
+    background: #ff4d6d;
+    box-shadow: 0 0 12px #ff4d6d;
+}
+.book-card[data-shelf="Courtly Romances"] .book-title {
+    color: #720937;
+}
+.book-card[data-shelf="Courtly Romances"] .book-author,
+.book-card[data-shelf="Courtly Romances"] .book-shelf-tag {
+    color: #a4133c;
+    border-color: rgba(164, 19, 60, 0.3);
+}
+.book-card[data-shelf="Courtly Romances"] .book-notes {
+    color: #6b122f;
+}
+
+/* 4. 👑 Radiant Royal Yellow (Shared Royal Reading with Prince Christopher) */
+.book-card[data-shelf="Shared Royal Reading"] {
+    background: linear-gradient(135deg, rgba(255, 253, 231, 0.95), rgba(255, 249, 196, 0.95));
+    color: #5d4037;
+    border-color: rgba(251, 192, 45, 0.8);
+    box-shadow: 0 6px 25px rgba(253, 216, 53, 0.35);
+}
+.book-card[data-shelf="Shared Royal Reading"] .book-spine-accent {
+    background: #fbc02d;
+    box-shadow: 0 0 12px #fbc02d;
+}
+.book-card[data-shelf="Shared Royal Reading"] .book-title {
+    color: #5f4802;
+}
+.book-card[data-shelf="Shared Royal Reading"] .book-author,
+.book-card[data-shelf="Shared Royal Reading"] .book-shelf-tag {
+    color: #827717;
+    border-color: rgba(130, 119, 23, 0.3);
+}
+.book-card[data-shelf="Shared Royal Reading"] .book-notes {
+    color: #4e3805;
+}
