@@ -1,5 +1,5 @@
 /**
- * THE ROYAL LIBRARY - BIBLIOPHILE PRINCESS SANCTUARY (v9-bibliophile-princess)
+ * THE ROYAL LIBRARY - BIBLIOPHILE PRINCESS LIBRARY(v9-bibliophile-princess)
  * Pure royal collection: Ancient Classics, Scholarly Fairy Tales, Star Traveller,
  * Courtly Romances, Etiquette & Statecraft, and Shared Readings with Prince Christopher.
  */
