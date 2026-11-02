@@ -13,7 +13,7 @@ I highly recommend listening to the op, while wandering around the royal library
 
 ---
 
-## ✨ Architectural Overview
+## 1✨ Architectural Overview
 
 **The Royal Library** is a fully immersive, client-side web application built as an eternal digital sanctuary for Lady Elianna. It combines pristine frontend craftsmanship with local data persistence, clean modular architecture, and a deeply emotional aesthetic metaphor inspired by *Bibliophile Princess* (*Mushikaburi-hime*).
 
@@ -24,7 +24,7 @@ I highly recommend listening to the op, while wandering around the royal library
 
 ---
 
-## 🎨 The Aesthetic & Emotional Metaphor
+## 2🎨 The Aesthetic & Emotional Metaphor
 
 The architecture intentionally avoids generic dark themes in favor of a narrative-driven visual experience:
 * **The Background Gradient**: Engineered to emulate Prince Christopher holding Elianna across the viewport scroll. It transitions from **Christopher’s deep sovereign navy blue and piercing sapphire eyes** at the crest, down through the **radiant golden light of his hair and crown**, into the **warm, soft embrace of Elianna’s iconic pink gown**, and settles into the quiet, protective shadows of the palace archive floor.
@@ -36,7 +36,7 @@ The architecture intentionally avoids generic dark themes in favor of a narrativ
 
 ---
 
-## 🛠️ Engineering Process & Step-by-Step Build
+##3 🛠️ Engineering Process & Step-by-Step Build
 
 ### Step 1: Establishing the Portal & DOM Structure (`index.html`)
 * Built an interactive **Threshold Portal** (`#threshold-portal`) that greets visitors with Elianna's core philosophy and shatters upon click or pressing `Enter`.
@@ -60,3 +60,13 @@ The architecture intentionally avoids generic dark themes in favor of a narrativ
   * Click handlers on `.delete-btn` (**🏛️ Return to Shelf**) remove volumes from the active array and persist the update.
 * **Archive Inscription**: Modal form submission captures new volume data, instantiates a new `Book`, unshifts it to the top of the collection, and saves it to local storage.
 * **Archive Export (`initExportEngine`)**: Generates a dynamic `data:text/json` anchor
+
+##4 Adding refractor class to the library:
+
+## Architectural Refactor: Standard Instance & Public Members
+
+For this royal collection (*Bibliophile Princess*), the codebase is built upon clean, standard object-oriented architecture utilizing **public instance members**:
+
+* **Standard Class Constructors:** Both the `Book` and `RoyalLibrary` blueprints use public properties (`this.id`, `this.title`, `this.author`, `this.shelf`, `this.status`, `this.notes`, and `this.books`) for direct state representation and manipulation.
+* **Instance Methods:** Core behavioral functions like `toggleRead()` are attached directly to the prototype via class methods, allowing each individual book instance to manage its reading progression (`powerfully-read` vs. `powerfully-reading`).
+* **Client-Side State Hydration:** The `RoyalLibrary` controller handles automated seed generation, version checking against `LIBRARY_VERSION`, and JSON parsing from `localStorage`, re-hydrating plain data objects back into fully functional `Book` class instances upon initialization.
