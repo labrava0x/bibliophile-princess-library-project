@@ -115,6 +115,169 @@ body {
     margin: 0;
 }
 
+/* Header Action Buttons */
+.scribe-trigger-btn {
+    background: rgba(27, 38, 59, 0.88);
+    color: #fbc02d;
+    border: 1px solid rgba(212, 175, 55, 0.55);
+    padding: 0.55rem 1.2rem;
+    border-radius: 8px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.6px;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+    transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+.scribe-trigger-btn:hover {
+    transform: translateY(-2px);
+    background: rgba(212, 175, 55, 0.2);
+    border-color: #fbc02d;
+}
+
+.scribe-trigger-btn.export-btn {
+    color: #f3ebd8;
+    border-color: rgba(243, 235, 216, 0.35);
+}
+
+/* Scribe Modal & Form Validation Styling */
+.scribe-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(8, 12, 20, 0.82);
+    backdrop-filter: blur(4px);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    z-index: 10000;
+}
+
+.scribe-modal-overlay.open,
+.scribe-modal-overlay.active,
+.scribe-modal-overlay.is-open {
+    display: flex;
+}
+
+.scribe-modal-content {
+    width: 100%;
+    max-width: 520px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: linear-gradient(145deg, rgba(27, 38, 59, 0.98), rgba(19, 16, 24, 0.98));
+    border: 1px solid rgba(212, 175, 55, 0.5);
+    border-radius: 14px;
+    padding: 2rem;
+    color: #f3ebd8;
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.75), 0 0 20px rgba(212, 175, 55, 0.15);
+}
+
+.scribe-modal-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1.6rem;
+    color: #fbc02d;
+    margin: 0 0 1.25rem;
+    text-align: center;
+    letter-spacing: 1px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.1rem;
+}
+
+.form-group label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.6px;
+    color: #e6c567;
+    margin-bottom: 0.35rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.65rem 0.8rem;
+    border-radius: 8px;
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    background: rgba(10, 22, 40, 0.85);
+    color: #f3ebd8;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #fbc02d;
+    box-shadow: 0 0 0 2px rgba(251, 192, 45, 0.22);
+}
+
+.form-group input.is-invalid,
+.form-group select.is-invalid,
+.form-group textarea.is-invalid {
+    border-color: #ff6b8b;
+    box-shadow: 0 0 0 2px rgba(255, 107, 139, 0.28);
+    background: rgba(89, 13, 34, 0.35);
+}
+
+.field-error,
+.eliana-validation-msg {
+    display: block;
+    min-height: 1.1rem;
+    margin-top: 0.35rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1rem;
+    line-height: 1.35;
+    color: #ff9eb5;
+}
+
+.scribe-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+}
+
+.submit-scribe-btn,
+.cancel-scribe-btn {
+    padding: 0.55rem 1.25rem;
+    border-radius: 8px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.88rem;
+    letter-spacing: 0.6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.submit-scribe-btn {
+    background: #d4af37;
+    color: #07090f;
+    border: 1px solid #fbc02d;
+    font-weight: bold;
+}
+
+.submit-scribe-btn:hover {
+    background: #fbc02d;
+}
+
+.cancel-scribe-btn {
+    background: rgba(255, 255, 255, 0.08);
+    color: #f3ebd8;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+.cancel-scribe-btn:hover {
+    background: rgba(255, 255, 255, 0.16);
+}
+
 /* Grid Layout */
 .royal-main {
     max-width: 1200px;
@@ -320,4 +483,18 @@ body {
 }
 .book-card[data-shelf="Shared Royal Reading"] .book-notes {
     color: #4e3805;
+}
+
+/* 5. 🏛️ Imperial Slate & Gold (Etiquette & Statecraft) */
+.book-card[data-shelf="Etiquette & Statecraft"] {
+    background: linear-gradient(135deg, rgba(22, 33, 49, 0.96), rgba(38, 29, 46, 0.96));
+    color: #f3ebd8;
+    border-color: rgba(212, 175, 55, 0.55);
+}
+.book-card[data-shelf="Etiquette & Statecraft"] .book-spine-accent {
+    background: #e2b538;
+    box-shadow: 0 0 10px rgba(226, 181, 56, 0.65);
+}
+.book-card[data-shelf="Etiquette & Statecraft"] .book-title {
+    color: #fce8b2;
 }

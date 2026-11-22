@@ -6,15 +6,28 @@
 
 const LIBRARY_VERSION = 'v9-bibliophile-princess-royal';
 
+// Elianna's Royal Catalog Validation Messages
+const ELIANA_VALIDATION = {
+    titleRequired: 'Books are treasures that capture the brilliance of history—don’t leave one without a title.',
+    titleTooShort: (min) => `A single letter isn’t a real title—give a treasure of history at least ${min} characters.`,
+    authorRequired: 'Books capture the brilliance of real minds and history—someone wrote this. Put their name down.',
+    pagesInvalid: 'A book’s pages have to be a whole number of at least 1—don’t give a treasure a fake or negative count.',
+    pagesTooHigh: (max) => `Over ${max.toLocaleString()} pages? Be serious—give the real page count.`,
+    shelfRequired: 'A treasure belongs in its proper wing—pick which shelf this book goes on.'
+};
+
 // Book Constructor
 class Book {
-    constructor(id, title, author, shelf, status, notes) {
+    constructor(id, title, author, shelf, status, notes, pages = null) {
         this.id = id || generateId();
         this.title = title;
         this.author = author;
         this.shelf = shelf;
         this.status = status || 'powerfully-read'; // 'powerfully-read' or 'powerfully-reading'
         this.notes = notes || '';
+        if (pages !== null && pages !== undefined && pages !== '') {
+            this.pages = Number(pages);
+        }
     }
 
     toggleRead() {
@@ -241,14 +254,14 @@ function loadLibrary() {
     const savedData = localStorage.getItem('myLibrary');
 
     if (savedVersion !== LIBRARY_VERSION || !savedData) {
-        myLibrary = rawSeedData.map(item => new Book(item.id, item.title, item.author, item.shelf, item.status, item.notes));
+        myLibrary = rawSeedData.map(item => new Book(item.id, item.title, item.author, item.shelf, item.status, item.notes, item.pages));
         saveLibrary();
     } else {
         try {
             const parsed = JSON.parse(savedData);
-            myLibrary = parsed.map(item => new Book(item.id, item.title, item.author, item.shelf, item.status, item.notes));
+            myLibrary = parsed.map(item => new Book(item.id, item.title, item.author, item.shelf, item.status, item.notes, item.pages));
         } catch (e) {
-            myLibrary = rawSeedData.map(item => new Book(item.id, item.title, item.author, item.shelf, item.status, item.notes));
+            myLibrary = rawSeedData.map(item => new Book(item.id, item.title, item.author, item.shelf, item.status, item.notes, item.pages));
             saveLibrary();
         }
     }
@@ -262,7 +275,9 @@ function saveLibrary() {
 document.addEventListener('DOMContentLoaded', () => {
     loadLibrary();
     initPortalEngine();
+    initScribeModal();
     initUIEventListeners();
+    initBookFormValidation();
     renderLibrary();
 });
 
@@ -272,7 +287,9 @@ function initPortalEngine() {
 
     function shatterPortal() {
         portal.classList.add('shattered');
-        setTimeout(() => portal.style.display = 'none', 800);
+        setTimeout(() => {
+            portal.style.display = 'none';
+        }, 800);
     }
 
     document.addEventListener('keydown', (e) => {
@@ -282,6 +299,187 @@ function initPortalEngine() {
     });
 
     portal.addEventListener('click', shatterPortal);
+}
+
+function initScribeModal() {
+    const modal = document.getElementById('scribe-modal');
+    const openBtn = document.getElementById('open-scribe-btn');
+    const closeBtn = document.getElementById('close-scribe-btn');
+    const titleInput = document.getElementById('book-title');
+
+    if (!modal || !openBtn) return;
+
+    function openModal() {
+        modal.style.display = 'flex';
+        modal.classList.add('open', 'active', 'is-open');
+        if (titleInput) {
+            titleInput.focus();
+        }
+    }
+
+    function closeModal() {
+        modal.style.display = 'none';
+        modal.classList.remove('open', 'active', 'is-open');
+    }
+
+    openBtn.addEventListener('click', openModal);
+
+    if (closeBtn) {
+        closeBtn.addEventListener('click', closeModal);
+    }
+
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.style.display !== 'none') {
+            closeModal();
+        }
+    });
+}
+
+function getOrCreateErrorElement(input) {
+    if (!input) return null;
+    const explicitId = input.getAttribute('aria-errormessage') || `${input.id}-error`;
+    let errorEl = document.querySelector(`[data-error-for="${input.id}"]`) || document.getElementById(explicitId);
+
+    if (!errorEl && input.parentElement) {
+        errorEl = document.createElement('span');
+        errorEl.className = 'field-error eliana-validation-msg';
+        errorEl.dataset.errorFor = input.id;
+        errorEl.setAttribute('aria-live', 'polite');
+        input.insertAdjacentElement('afterend', errorEl);
+    } else if (errorEl && !errorEl.hasAttribute('aria-live')) {
+        errorEl.setAttribute('aria-live', 'polite');
+    }
+
+    return errorEl;
+}
+
+function validateField(input) {
+    if (!input) return true;
+
+    const errorEl = getOrCreateErrorElement(input);
+    const rawValue = input.value;
+    const trimmed = rawValue.trim();
+    const fieldName = (input.name || input.id || '').toLowerCase();
+    let message = '';
+
+    if (fieldName.includes('title')) {
+        if (!trimmed) {
+            message = ELIANA_VALIDATION.titleRequired;
+        } else if (trimmed.length < 2) {
+            message = ELIANA_VALIDATION.titleTooShort(2);
+        }
+    } else if (fieldName.includes('author')) {
+        if (!trimmed) {
+            message = ELIANA_VALIDATION.authorRequired;
+        }
+    } else if (fieldName.includes('page')) {
+        if (trimmed !== '') {
+            const num = Number(trimmed);
+            const maxPages = Number(input.max) || 50000;
+            if (!Number.isInteger(num) || num < 1) {
+                message = ELIANA_VALIDATION.pagesInvalid;
+            } else if (num > maxPages) {
+                message = ELIANA_VALIDATION.pagesTooHigh(maxPages);
+            }
+        } else if (input.required) {
+            message = ELIANA_VALIDATION.pagesInvalid;
+        }
+    } else if (fieldName.includes('shelf') || fieldName.includes('wing')) {
+        if (input.required && !trimmed) {
+            message = ELIANA_VALIDATION.shelfRequired;
+        }
+    } else if (input.required && !trimmed) {
+        message = 'This field must be completed before sealing the royal entry.';
+    }
+
+    input.setCustomValidity(message);
+    input.classList.toggle('is-invalid', Boolean(message));
+    input.setAttribute('aria-invalid', message ? 'true' : 'false');
+
+    if (errorEl) {
+        errorEl.textContent = message;
+    }
+
+    return !message;
+}
+
+function initBookFormValidation() {
+    const form = document.querySelector('#add-volume-form, #book-form, #add-book-form, form[data-library-form]');
+    if (!form) return;
+
+    form.setAttribute('novalidate', '');
+
+    const fields = Array.from(form.querySelectorAll('input, select, textarea'));
+
+    fields.forEach((field) => {
+        field.addEventListener('input', () => validateField(field));
+        field.addEventListener('blur', () => validateField(field));
+    });
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        let firstInvalid = null;
+        const allValid = fields.reduce((validSoFar, field) => {
+            const isFieldValid = validateField(field);
+            if (!isFieldValid && !firstInvalid) {
+                firstInvalid = field;
+            }
+            return validSoFar && isFieldValid;
+        }, true);
+
+        if (!allValid) {
+            if (firstInvalid) {
+                firstInvalid.focus();
+            }
+            return;
+        }
+
+        const titleInput = form.querySelector('[name="title"], #book-title, #title');
+        const authorInput = form.querySelector('[name="author"], #book-author, #author');
+        const shelfInput = form.querySelector('[name="shelf"], #book-shelf, #shelf');
+        const statusInput = form.querySelector('[name="status"], #book-status, #status');
+        const notesInput = form.querySelector('[name="notes"], #book-notes, #notes');
+        const pagesInput = form.querySelector('[name="pages"], #book-pages, #pages');
+
+        const newBook = new Book(
+            generateId(),
+            titleInput ? titleInput.value.trim() : 'Untitled Volume',
+            authorInput ? authorInput.value.trim() : 'Unknown Archivist',
+            shelfInput && shelfInput.value.trim() ? shelfInput.value.trim() : 'Scholarly Fairy Tales',
+            statusInput && statusInput.value ? statusInput.value : 'powerfully-reading',
+            notesInput ? notesInput.value.trim() : '',
+            pagesInput && pagesInput.value.trim() !== '' ? Number(pagesInput.value.trim()) : null
+        );
+
+        myLibrary.push(newBook);
+        saveLibrary();
+        renderLibrary();
+
+        form.reset();
+        fields.forEach((field) => {
+            field.setCustomValidity('');
+            field.classList.remove('is-invalid');
+            field.removeAttribute('aria-invalid');
+            const errorEl = getOrCreateErrorElement(field);
+            if (errorEl) errorEl.textContent = '';
+        });
+
+        const modal = form.closest('dialog, .modal, [role="dialog"], .scribe-modal-overlay');
+        if (modal) {
+            modal.style.display = 'none';
+            modal.classList.remove('open', 'active', 'is-open');
+            if (typeof modal.close === 'function' && modal.open) {
+                modal.close();
+            }
+        }
+    });
 }
 
 function initUIEventListeners() {
@@ -326,7 +524,7 @@ function renderLibrary() {
         const card = document.createElement('div');
         card.className = `book-card ${book.status}`;
         card.dataset.id = book.id;
-        card.dataset.shelf = book.shelf; // Binds shelf name for CSS styling
+        card.dataset.shelf = book.shelf;
 
         const isRead = book.status === 'powerfully-read';
 
@@ -348,7 +546,21 @@ function renderLibrary() {
 }
 
 function escapeHTML(str) {
-    return str.replace(/[&<>'"]/g, 
-        tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
-    );
+    const amp = String.fromCharCode(38);
+    return String(str ?? '').replace(/[&<>'"]/g, (tag) => {
+        switch (tag) {
+            case '&':
+                return `${amp}amp;`;
+            case '<':
+                return `${amp}lt;`;
+            case '>':
+                return `${amp}gt;`;
+            case "'":
+                return `${amp}#39;`;
+            case '"':
+                return `${amp}quot;`;
+            default:
+                return tag;
+        }
+    });
 }

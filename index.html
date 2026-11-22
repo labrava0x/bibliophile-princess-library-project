@@ -39,15 +39,15 @@
             <form id="add-volume-form">
                 <div class="form-group">
                     <label for="book-title">Volume Title</label>
-                    <input type="text" id="book-title" required placeholder="e.g., The Secret History of Sylvania">
+                    <input type="text" id="book-title" name="title" required placeholder="e.g., The Secret History of Sylvania">
                 </div>
                 <div class="form-group">
                     <label for="book-author">Author / Scribe</label>
-                    <input type="text" id="book-author" required placeholder="e.g., Court Chronicler">
+                    <input type="text" id="book-author" name="author" required placeholder="e.g., Court Chronicler">
                 </div>
                 <div class="form-group">
                     <label for="book-shelf">Royal Wing / Shelf</label>
-                    <select id="book-shelf" required>
+                    <select id="book-shelf" name="shelf" required>
                         <option value="Ancient Classics">Ancient Classics</option>
                         <option value="Latin Classics">Latin Classics</option>
                         <option value="Ancient Greek">Ancient Greek</option>
@@ -60,14 +60,18 @@
                 </div>
                 <div class="form-group">
                     <label for="book-status">Reading State</label>
-                    <select id="book-status" required>
+                    <select id="book-status" name="status" required>
                         <option value="powerfully-read">✨ Powerfully Read</option>
                         <option value="powerfully-reading">📖 Powerfully Reading</option>
                     </select>
                 </div>
                 <div class="form-group">
+                    <label for="book-pages">Page Count</label>
+                    <input type="number" id="book-pages" name="pages" min="1" max="50000" step="1" placeholder="e.g., 420">
+                </div>
+                <div class="form-group">
                     <label for="book-notes">Manuscript Notes</label>
-                    <textarea id="book-notes" rows="3" placeholder="Write personal marginalia or impressions..."></textarea>
+                    <textarea id="book-notes" name="notes" rows="3" placeholder="Write personal marginalia or impressions..."></textarea>
                 </div>
                 <div class="scribe-modal-actions">
                     <button type="submit" class="submit-scribe-btn">Seal in Archives</button>
@@ -84,5 +88,6 @@
 
     <!-- Core Script -->
     <script src="royalibrary.js"></script>
+    <script src="royal-validation.js"></script>
 </body>
 </html>
