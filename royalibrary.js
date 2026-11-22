@@ -1,20 +1,21 @@
 /**
- * THE ROYAL LIBRARY - BIBLIOPHILE PRINCESS LIBRARY(v9-bibliophile-princess)
- * Pure royal collection: Ancient Classics, Scholarly Fairy Tales, Star Traveller,
- * Courtly Romances, Etiquette & Statecraft, and Shared Readings with Prince Christopher.
+- THE ROYAL LIBRARY - BIBLIOPHILE PRINCESS LIBRARY
+- Pure royal collection: Ancient Classics, Scholarly Fairy Tales, Star Traveller,
+- Courtly Romances, Etiquette & Statecraft, and Shared Readings with Prince Christopher.
  */
 
-const LIBRARY_VERSION = 'v9-bibliophile-princess-royal';
+const LIBRARY_VERSION = 'v11-bibliophile-princess-royal';
 
 // Book Constructor
 class Book {
-    constructor(id, title, author, shelf, status, notes) {
+    constructor(id, title, author, shelf, status, notes, pages = null) {
         this.id = id || generateId();
         this.title = title;
         this.author = author;
         this.shelf = shelf;
         this.status = status || 'powerfully-read'; // 'powerfully-read' or 'powerfully-reading'
         this.notes = notes || '';
+        this.pages = pages ? Number(pages) : null;
     }
 
     toggleRead() {
@@ -236,19 +237,25 @@ const rawSeedData = [
 
 let myLibrary = [];
 
+function hydrateBooks(items) {
+    return items.map(
+        item => new Book(item.id, item.title, item.author, item.shelf, item.status, item.notes, item.pages)
+    );
+}
+
 function loadLibrary() {
     const savedVersion = localStorage.getItem('library_version');
     const savedData = localStorage.getItem('myLibrary');
 
     if (savedVersion !== LIBRARY_VERSION || !savedData) {
-        myLibrary = rawSeedData.map(item => new Book(item.id, item.title, item.author, item.shelf, item.status, item.notes));
+        myLibrary = hydrateBooks(rawSeedData);
         saveLibrary();
     } else {
         try {
             const parsed = JSON.parse(savedData);
-            myLibrary = parsed.map(item => new Book(item.id, item.title, item.author, item.shelf, item.status, item.notes));
+            myLibrary = Array.isArray(parsed) ? hydrateBooks(parsed) : hydrateBooks(rawSeedData);
         } catch (e) {
-            myLibrary = rawSeedData.map(item => new Book(item.id, item.title, item.author, item.shelf, item.status, item.notes));
+            myLibrary = hydrateBooks(rawSeedData);
             saveLibrary();
         }
     }
@@ -262,6 +269,8 @@ function saveLibrary() {
 document.addEventListener('DOMContentLoaded', () => {
     loadLibrary();
     initPortalEngine();
+    initScribeModal();
+    initExportEngine();
     initUIEventListeners();
     renderLibrary();
 });
@@ -272,7 +281,9 @@ function initPortalEngine() {
 
     function shatterPortal() {
         portal.classList.add('shattered');
-        setTimeout(() => portal.style.display = 'none', 800);
+        setTimeout(() => {
+            portal.style.display = 'none';
+        }, 800);
     }
 
     document.addEventListener('keydown', (e) => {
@@ -282,6 +293,110 @@ function initPortalEngine() {
     });
 
     portal.addEventListener('click', shatterPortal);
+}
+
+function initScribeModal() {
+    const modal = document.getElementById('scribe-modal');
+    const openBtn = document.getElementById('open-scribe-btn');
+    const closeBtn = document.getElementById('close-scribe-btn');
+    const form = document.getElementById('add-volume-form');
+
+    if (!modal || !openBtn || !form) return;
+
+    function openModal() {
+        modal.style.display = 'flex';
+        const titleInput = document.getElementById('book-title');
+        if (titleInput) {
+            setTimeout(() => titleInput.focus(), 50);
+        }
+    }
+
+    function closeModal() {
+        modal.style.display = 'none';
+        form.reset();
+    }
+
+    openBtn.addEventListener('click', openModal);
+
+    if (closeBtn) {
+        closeBtn.addEventListener('click', closeModal);
+    }
+
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.style.display !== 'none') {
+            closeModal();
+        }
+    });
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const titleInput = document.getElementById('book-title');
+        const authorInput = document.getElementById('book-author');
+        const shelfInput = document.getElementById('book-shelf');
+        const statusInput = document.getElementById('book-status');
+        const pagesInput = document.getElementById('book-pages');
+        const notesInput = document.getElementById('book-notes');
+
+        const title = titleInput ? titleInput.value.trim() : '';
+        const author = authorInput ? authorInput.value.trim() : '';
+        const shelf = shelfInput ? shelfInput.value : 'Ancient Classics';
+        const status = statusInput ? statusInput.value : 'powerfully-read';
+        const notes = notesInput ? notesInput.value.trim() : '';
+
+        const rawPages = pagesInput ? pagesInput.value.trim() : '';
+        const parsedPages = rawPages !== '' && Number(rawPages) > 0 ? Math.floor(Number(rawPages)) : null;
+
+        if (!title || !author) return;
+
+        const newBook = new Book(
+            generateId(),
+            title,
+            author,
+            shelf,
+            status,
+            notes,
+            parsedPages
+        );
+
+        myLibrary.unshift(newBook);
+        saveLibrary();
+        renderLibrary();
+        closeModal();
+    });
+}
+
+function initExportEngine() {
+    const exportBtn = document.getElementById('export-library-btn');
+    if (!exportBtn) return;
+
+    exportBtn.addEventListener('click', () => {
+        const exportPayload = {
+            version: LIBRARY_VERSION,
+            exportedAt: new Date().toISOString(),
+            totalVolumes: myLibrary.length,
+            books: myLibrary
+        };
+
+        const jsonString = JSON.stringify(exportPayload, null, 2);
+        const blob = new Blob([jsonString], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'royal-library-archives.json';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+    });
 }
 
 function initUIEventListeners() {
@@ -329,6 +444,9 @@ function renderLibrary() {
         card.dataset.shelf = book.shelf; // Binds shelf name for CSS styling
 
         const isRead = book.status === 'powerfully-read';
+        const pagesMarkup = book.pages
+            ? `<p class="book-pages">📜 ${escapeHTML(Number(book.pages).toLocaleString())} pages</p>`
+            : '';
 
         card.innerHTML = `
             <div class="book-spine-accent"></div>
@@ -336,6 +454,7 @@ function renderLibrary() {
                 <span class="book-shelf-tag">${escapeHTML(book.shelf)}</span>
                 <h3 class="book-title">${escapeHTML(book.title)}</h3>
                 <h4 class="book-author">by ${escapeHTML(book.author)}</h4>
+                ${pagesMarkup}
                 <p class="book-notes">${escapeHTML(book.notes)}</p>
                 <div class="book-actions">
                     <button class="status-btn">${isRead ? '✨ Powerfully Read' : '📖 Powerfully Reading'}</button>
@@ -346,9 +465,8 @@ function renderLibrary() {
         libraryContainer.appendChild(card);
     });
 }
-
 function escapeHTML(str) {
-    return str.replace(/[&<>'"]/g, 
+    return String(str || '').replace(/[&<>'"]/g,
         tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
     );
 }

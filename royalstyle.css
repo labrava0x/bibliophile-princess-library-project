@@ -321,3 +321,190 @@ body {
 .book-card[data-shelf="Shared Royal Reading"] .book-notes {
     color: #4e3805;
 }
+
+/* =================================================================
+   HEADER ACTIONS, PAGE COUNT & ARCHIVE INSCRIPTION MODAL
+   ================================================================= */
+
+.book-pages {
+    font-family: 'Cinzel', serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.6px;
+    color: #e6c567;
+    margin: 0 0 0.8rem 0;
+}
+
+.book-card[data-shelf="Ancient Classics"] .book-pages,
+.book-card[data-shelf="Latin Classics"] .book-pages,
+.book-card[data-shelf="Ancient Greek"] .book-pages,
+.book-card[data-shelf="Traditional Chinese"] .book-pages {
+    color: #5c4033;
+}
+
+.book-card[data-shelf="Courtly Romances"] .book-pages {
+    color: #9d174d;
+}
+
+.book-card[data-shelf="Shared Royal Reading"] .book-pages {
+    color: #7c5806;
+}
+
+/* Header Action Buttons */
+.scribe-trigger-btn {
+    font-family: 'Cinzel', serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    padding: 0.65rem 1.35rem;
+    border-radius: 8px;
+    border: 1px solid rgba(251, 192, 45, 0.65);
+    background: linear-gradient(135deg, #fbc02d 0%, #d4af37 100%);
+    color: #080c14;
+    cursor: pointer;
+    box-shadow: 0 4px 18px rgba(212, 175, 55, 0.35);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+}
+
+.scribe-trigger-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(251, 192, 45, 0.5);
+    filter: brightness(1.05);
+}
+
+.scribe-trigger-btn.export-btn {
+    background: rgba(10, 22, 40, 0.85);
+    color: #fbc02d;
+    border: 1px solid rgba(212, 175, 55, 0.45);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.scribe-trigger-btn.export-btn:hover {
+    background: rgba(27, 38, 59, 0.95);
+    border-color: #fbc02d;
+}
+
+/* Modal Overlay & Royal Card */
+.scribe-modal-overlay {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1.25rem;
+    background: rgba(8, 12, 20, 0.82);
+    backdrop-filter: blur(5px);
+    z-index: 9000;
+}
+
+.scribe-modal-content {
+    width: 100%;
+    max-width: 520px;
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: 14px;
+    padding: 2rem;
+    background: linear-gradient(160deg, rgba(16, 28, 48, 0.98) 0%, rgba(28, 22, 36, 0.98) 100%);
+    color: #f3ebd8;
+    border: 1px solid rgba(212, 175, 55, 0.5);
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.75), 0 0 24px rgba(255, 179, 198, 0.15);
+}
+
+.scribe-modal-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1.65rem;
+    letter-spacing: 1px;
+    text-align: center;
+    margin: 0 0 1.4rem 0;
+    color: #fbc02d;
+    text-shadow: 0 2px 10px rgba(251, 192, 45, 0.25);
+}
+
+#add-volume-form .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 1rem;
+}
+
+#add-volume-form label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: #ffb3c6;
+}
+
+#add-volume-form input,
+#add-volume-form select,
+#add-volume-form textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.65rem 0.85rem;
+    border-radius: 8px;
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    background: rgba(10, 22, 40, 0.78);
+    color: #f3ebd8;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+#add-volume-form input::placeholder,
+#add-volume-form textarea::placeholder {
+    color: rgba(243, 235, 216, 0.5);
+    font-style: italic;
+}
+
+#add-volume-form input:focus,
+#add-volume-form select:focus,
+#add-volume-form textarea:focus {
+    outline: none;
+    border-color: #fbc02d;
+    box-shadow: 0 0 0 3px rgba(251, 192, 45, 0.2);
+}
+
+.scribe-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    margin-top: 1.4rem;
+}
+
+.submit-scribe-btn {
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.7px;
+    padding: 0.65rem 1.3rem;
+    border-radius: 8px;
+    border: 1px solid rgba(251, 192, 45, 0.7);
+    background: linear-gradient(135deg, #fbc02d 0%, #d4af37 100%);
+    color: #080c14;
+    cursor: pointer;
+    transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.submit-scribe-btn:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.06);
+}
+
+.cancel-scribe-btn {
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.7px;
+    padding: 0.65rem 1.15rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 179, 198, 0.45);
+    background: rgba(27, 38, 59, 0.85);
+    color: #f3ebd8;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.cancel-scribe-btn:hover {
+    background: rgba(224, 122, 147, 0.25);
+    border-color: #ffb3c6;
+}
